@@ -27,8 +27,13 @@ bool Saber::SaberSound::isBusy() const
 	}
 }
 
-void Saber::SaberSound::playSound(SaberSounds sound) const
+void Saber::SaberSound::playSound(int sound) const
 {
+
+	if (Serial) {
+		Serial.print("Playing sound: ");
+		Serial.println(sound);
+	}
 
 	digitalWrite(_dataPin, LOW);	// We need to ensure that the chip is woken up from sleep mode
 	delay(5);
@@ -50,8 +55,38 @@ void Saber::SaberSound::playSound(SaberSounds sound) const
 		}
 	}
 
-	digitalWrite(_dataPin, 1);
+	digitalWrite(_dataPin, HIGH);
 
 	while (!this->isBusy()) {}
 
+}
+
+void Saber::SaberSound::playSwingSound() const {
+
+	// Use arduino random to pick a swing sound to play
+	int sound = random(MIN_SWING, MAX_SWING);
+
+	this->playSound(sound);
+}
+
+void Saber::SaberSound::playHitSound() const
+{
+	int sound = random(MIN_HIT, MAX_HIT);
+
+	this->playSound(sound);
+}
+
+void Saber::SaberSound::playStrikeSound() const
+{
+	int sound = random(MIN_STRIKE, MAX_STRIKE);
+
+	this->playSound(sound);
+}
+
+void Saber::SaberSound::reset() const
+{
+	digitalWrite(_resetPin, LOW);
+	delay(5);
+	digitalWrite(_resetPin, HIGH);
+	delay(18);
 }

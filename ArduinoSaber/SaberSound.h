@@ -44,7 +44,11 @@ namespace Saber {
 		~SaberSound();
 
 		bool isBusy() const;
-		void playSound(SaberSounds sound) const;
+		void playSwingSound() const;
+		void playHitSound() const;
+		void playStrikeSound() const;
+		void playSound(int sound) const;
+		void reset() const;
 
 	private:
 		const byte _dataPin;
