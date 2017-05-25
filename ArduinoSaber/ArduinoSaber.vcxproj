@@ -82,6 +82,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SaberStates.h" />
     <ClInclude Include="SaberSound.h" />
     <ClInclude Include="SaberStateMachine.h" />
     <ClInclude Include="SaberSword.h" />

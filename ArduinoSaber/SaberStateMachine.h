@@ -1,19 +1,12 @@
 #pragma once
 #include "SaberSound.h"
 #include "SaberSword.h"
+#include "SaberStates.h"
 #include "Arduino.h"
 
 namespace Saber {
 
-	enum SaberState { 
-		OFF_STATE = 0,
-		IDLE_STATE = 1,
-		SWING_STATE = 2,
-		STRIKE_STATE = 3,
-		HIT_STATE = 4,
-		POWERING_ON_STATE = 5,
-		POWERING_OFF_STATE = 6
-	};
+	
 
 	class SaberStateMachine
 	{
@@ -35,6 +28,8 @@ namespace Saber {
 
 		SaberState _currentState;
 		SaberState _previousState;
+
+		long _currentStateStartMillis;
 
 		void _idleSound();
 		void _powerOff();

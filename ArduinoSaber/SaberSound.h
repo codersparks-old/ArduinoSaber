@@ -3,6 +3,9 @@
 
 namespace Saber {
 
+	const long POWER_ON_SOUND_TIME = 1718l;
+	const long POWER_OFF_SOUND_TIME = 616l;
+
 	// Enum that maps to sounds flashed into the sound board
 	enum SaberSounds {
 		IDLE = 0,

@@ -1,6 +1,5 @@
 #include "SaberStateMachine.h"
 
-0.
  
 Saber::SaberStateMachine::SaberStateMachine(byte soundDataPin, byte soundBusyPin, byte soundResetPin, byte swordDataPin)
 	: _saberSound(soundDataPin, soundBusyPin, soundResetPin), _saberSword(swordDataPin), _currentState(SaberState::OFF_STATE)
@@ -56,6 +55,7 @@ void Saber::SaberStateMachine::update()
 
 	}
 
+	_saberSword.update(_currentState, millis() - _currentStateStartMillis);
 	_previousState = _currentState;
 }
 
@@ -70,13 +70,17 @@ void Saber::SaberStateMachine::powerChangeEvent()
 		break;
 	}
 
+	_currentStateStartMillis = millis();
+
 }
 
 void Saber::SaberStateMachine::swingEvent()
 {
+
 	switch (_currentState) {
 	case IDLE_STATE:
 		_currentState = SWING_STATE;
+		_currentStateStartMillis = millis();
 		break;
 	default:
 		// No - op
@@ -89,9 +93,11 @@ void Saber::SaberStateMachine::shockEvent()
 	switch (_currentState) {
 	case IDLE_STATE:
 		_currentState = HIT_STATE;
+		_currentStateStartMillis = millis();
 		break;
 	case SWING_STATE:
 		_currentState = STRIKE_STATE;
+		_currentStateStartMillis = millis();
 		break;
 	default:
 		// no change in state
